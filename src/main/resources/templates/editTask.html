@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<title>Edit Task</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+}
+
+.container{
+width:50%;
+margin:auto;
+margin-top:40px;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+input,select,textarea{
+width:100%;
+padding:8px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+padding:10px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+width:100%;
+margin-top:10px;
+}
+
+button:hover{
+background:#0056b3;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Edit Task</h2>
+
+<form th:action="@{/saveTask}" th:object="${task}" method="post">
+
+<input type="hidden" th:field="*{id}">
+
+<label>Task Title</label>
+<input type="text" th:field="*{title}">
+
+<label>Task Description</label>
+<textarea th:field="*{description}"></textarea>
+
+<label>Task Due Date</label>
+<input type="date" th:field="*{dueDate}">
+
+<label>Task Status</label>
+<select th:field="*{status}">
+<option value="Pending">Pending</option>
+<option value="In Progress">In Progress</option>
+<option value="Completed">Completed</option>
+</select>
+
+<label>Task Remarks</label>
+<input type="text" th:field="*{remarks}">
+
+<!-- SHOW ORIGINAL CREATOR -->
+
+<label>Created By</label>
+<input type="text" th:value="${task.createdByName} + ' (' + ${task.createdById} + ')'" readonly>
+
+<label>Created On</label>
+<input type="text" th:value="${task.createdOn}" readonly>
+
+<!-- SELECT USER WHO IS UPDATING -->
+
+<label>User Updating Task</label>
+
+<select name="userInfo" required>
+
+<option value="">Select User</option>
+
+<option value="Divya-EMP101">Divya (EMP101)</option>
+
+<option value="Rahul-EMP102">Rahul (EMP102)</option>
+
+<option value="Neha-EMP103">Neha (EMP103)</option>
+
+</select>
+
+<button type="submit">Update Task</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>
